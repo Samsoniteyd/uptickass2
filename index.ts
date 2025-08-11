@@ -1,49 +1,34 @@
 import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import config from './config/env';
 import connectDB from './config/database';
-// import userRouter from './routes/user.router';
-import userRouter from './routes/user.router';
+import authRoutes from './routes/auth.routes';
+import { errorHandler } from './middleware/error.middleware';
+import logger from './utils/logger';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
+// Connect to MongoDB
+connectDB();
+
+// Middleware
 app.use(express.json());
-app.use('/users', userRouter); 
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cors({
+  origin: config.nodeEnv === 'development' ? 'http://localhost:3000' : 'your-production-url',
+  credentials: true,
+}));
+app.use(helmet());
+app.use(morgan('dev'));
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-});
+// Routes
+app.use('/api/v1/auth', authRoutes);
 
+// Error handling middleware
+app.use(errorHandler);
 
-
-
-
-
-
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const path = require('path');
-// const sequelize = require('./config/database');
-// const userRoutes = require('./routes/user.router');
-
-// const app = express();
-// const port = 3000;
-
-// app.use(bodyParser.json());
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use('/api/users', userRoutes);
-
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
-
-// sequelize.sync({ force: true }).then(() => {
-//   console.log('Database synced');
-//   app.listen(port, () => {
-//     console.log(`Server running at http://localhost:${port}`);
-//   });
-// }).catch(error => {
-//   console.error('Unable to connect to the database:', error);
-// });
+export default app;

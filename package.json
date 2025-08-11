@@ -1,29 +1,52 @@
 {
   "name": "uptick",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node-dev index.ts"
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "mongoose": "^8.16.5",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "morgan": "^1.10.1",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
-    "@types/node": "^24.1.0",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.2.1",
     "nodemon": "^3.1.10",
-    "typescript": "^5.8.3"
-  }
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samsoniteyd/uptickass2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Samsoniteyd/uptickass2/issues"
+  },
+  "homepage": "https://github.com/Samsoniteyd/uptickass2#readme",
+  "description": ""
 }
